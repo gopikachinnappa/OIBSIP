@@ -1,42 +1,57 @@
+
 import random
 import string
 
+print("=" * 50)
+print("           RANDOM PASSWORD GENERATOR")
+print("=" * 50)
+
 while True:
-    length = int(input("Enter password length (minimum 8): "))
 
-    if length < 8:
-        print("Password length must be at least 8.")
-        continue
+    # Get password length
+    length = int(input("\nEnter password length: "))
 
-    print("Choose character types:")
-    upper = input("Include Uppercase letters? (yes/no): ").lower() == "yes"
-    lower = input("Include Lowercase letters? (yes/no): ").lower() == "yes"
-    numbers = input("Include Numbers? (yes/no): ").lower() == "yes"
-    symbols = input("Include Symbols? (yes/no): ").lower() == "yes"
+    # Get character preferences
+    upper = input("Include uppercase letters? (yes/no): ").lower()
+    lower = input("Include lowercase letters? (yes/no): ").lower()
+    numbers = input("Include numbers? (yes/no): ").lower()
+    symbols = input("Include symbols? (yes/no): ").lower()
 
+    # Create character set
     characters = ""
 
-    if upper:
+    if upper == "yes":
         characters += string.ascii_uppercase
-    if lower:
+
+    if lower == "yes":
         characters += string.ascii_lowercase
-    if numbers:
+
+    if numbers == "yes":
         characters += string.digits
-    if symbols:
+
+    if symbols == "yes":
         characters += string.punctuation
 
-    selected_types = sum([upper, lower, numbers, symbols])
-
-    if selected_types < 2:
-        print("Please select at least two character types.")
+    # Check character selection
+    if characters == "":
+        print("\nPlease select at least one character type.")
         continue
 
-    password = "".join(random.choice(characters) for _ in range(length))
+    # Generate password
+    password = ""
 
-    print("\nGenerated Password:", password)
+    for i in range(length):
+        password += random.choice(characters)
 
+    print("\n" + "-" * 50)
+    print("Generated Password:", password)
+    print("-" * 50)
+
+    # Ask whether to generate another password
     again = input("\nGenerate another password? (yes/no): ").lower()
 
     if again != "yes":
-        print("Thank you for using Password Generator!")
+        print("\nThank you for using Password Generator!")
         break
+
+print("=" * 50)
